@@ -1,4 +1,4 @@
-import {GET_LOTEOS, GET_MEDIDORES, GET_MEDIDOR_BY_ID} from './actions'
+import {GET_LOTEOS, GET_MEDIDORES, GET_MEDIDOR_BY_ID, PUT_LECTURA_BY_MEDIDOR} from './actions'
 
 const initialState = {
     loteos: ["hola"],
@@ -17,6 +17,9 @@ const rootReducer = (state = initialState, action : any) => {
         case GET_MEDIDOR_BY_ID:
             return {...state, medidor_detail: action.payload}
 
+        case PUT_LECTURA_BY_MEDIDOR:
+            return {...state, medidor_detail: action.payload}    
+        
         default:
             return {...state}
     }
