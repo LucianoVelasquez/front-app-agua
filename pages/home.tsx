@@ -7,20 +7,21 @@ import { get_loteos, get_medidores } from '../redux/actions';
 
 
 
+
 export default function Home({ navigation } : any) {
-
-    const dispatch = useDispatch<any>()
-    const loteos = useSelector((state : any) => state.loteos);
-
+  
+  const dispatch = useDispatch<any>()
+  const loteos = useSelector((state : any) => state.loteos);
 
     const getDataApi = () => {
       dispatch(get_loteos());
-      dispatch(get_medidores())
-    }
+      dispatch(get_medidores()) 
+    } 
 
     useEffect(()=>{
-
+      
       getDataApi();
+      
       
     },[])
 
@@ -29,9 +30,9 @@ export default function Home({ navigation } : any) {
         <View style={styles.container}>
           <Text>Loteos: </Text>
           {
-            loteos.map( (loteo : any) => {
+            loteos.map( (loteo : any,i : number) => {
               return (
-                <Text style={{fontSize:24,marginVertical:10}}>
+                <Text key={i} style={{fontSize:24,marginVertical:10}}>
                   {loteo.name}
                 </Text>
               )
