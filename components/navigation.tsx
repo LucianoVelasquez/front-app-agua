@@ -9,7 +9,7 @@ export default function Navigation(){
 
     return(
         <NavigationContainer>
-            <Stack.Navigator initialRouteName='Login'>
+            <Stack.Navigator initialRouteName='/'>
             <Stack.Screen options={{headerShown:false}}   name="Login" component={Login} />
             <Stack.Screen options={{headerShown:false}} name="/" component={NavigationTabs} />
             </Stack.Navigator>

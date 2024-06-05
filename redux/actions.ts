@@ -9,16 +9,34 @@ const URL_BACK = 'http://127.0.0.1:8000/'
 
 export const get_loteos = () => {
     return async function (dispatch: any) {
-        const {data} = await axios('http://127.0.0.1:8000/loteo')
+        try {
+            //Test en Android
+            /* const {data} = await axios('https://jsonplaceholder.typicode.com/users') */
+
+            const {data} = await axios('http://127.0.0.1:8000/loteo')
+            console.log(data);
+            
+            dispatch({type: GET_LOTEOS, payload: data})
+
+        } catch (error) {
+            console.log("Error get_loteos");
+            
+        }
         
-        dispatch({type: GET_LOTEOS, payload: data})
     }
 }
 
 export const get_medidores = () => {
     return async function (dispatch : any) {
-        const {data} = await axios('http://127.0.0.1:8000/medidor')
-        dispatch({type: GET_MEDIDORES, payload: data})
+        try {
+            const data = await fetch('http://127.0.0.1:8000/medidor');
+            console.log(data);
+            
+            dispatch({type: GET_MEDIDORES, payload: data})
+        } catch (error) {
+            console.log("Error get_medidores");
+            
+        }
     } 
 }
 
