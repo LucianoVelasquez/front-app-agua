@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View,Text } from 'react-native';
-import {  Image,Input,Button } from '@rneui/themed';
-import { Mail,KeyRound   } from 'lucide-react-native';
+import { Button } from '@rneui/themed';
+
 
 export default function Settings({ navigation } : any) {
     return (
   
         <View style={styles.container}>
+
           <Text>Settings</Text>
+
+          
+
+
           <Button
           title="Go to Details"
           onPress={() => navigation.navigate('Login')}
