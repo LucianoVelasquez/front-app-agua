@@ -1,7 +1,7 @@
 import {GET_LOTEOS, GET_MEDIDORES} from './actions'
 
 const initialState = {
-    loteos: [],
+    loteos: ["hola"],
     medidores: []
 }
 

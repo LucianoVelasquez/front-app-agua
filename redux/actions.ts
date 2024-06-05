@@ -7,7 +7,6 @@ export const GET_MEDIDORES = 'GET_MEDIDORES'
 export const get_loteos = () => {
     return async function (dispatch: any) {
         const {data} = await axios('http://127.0.0.1:8000/loteo')
-        console.log(data);
         
         dispatch({type: GET_LOTEOS, payload: data})
     }
