@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../pages/home";
-import Settings from "../pages/setting";
-import { HomeIcon, SettingsIcon } from "lucide-react-native";
+import { HomeIcon, SettingsIcon,Search } from "lucide-react-native";
+import Medidores from "../pages/medidores";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,10 +23,10 @@ export function NavigationTabs() {
       />
       <Tab.Screen
         options={{ headerShown: false,tabBarIcon: ({ color, size }) => {
-          return <SettingsIcon color={color} />
+          return <Search color={color} />
         }, }}
-        name="Settings"
-        component={Settings}
+        name="Medidores"
+        component={Medidores}
       />
     </Tab.Navigator>
   );

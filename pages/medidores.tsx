@@ -3,7 +3,7 @@ import { StyleSheet, View,Text } from 'react-native';
 import { Button } from '@rneui/themed';
 
 
-export default function Settings({ navigation } : any) {
+export default function Medidores({ navigation } : any) {
     return (
   
         <View style={styles.container}>
@@ -13,10 +13,7 @@ export default function Settings({ navigation } : any) {
           
 
 
-          <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate('Login')}
-          />
+          
           <StatusBar style="auto" />
         </View>
       
