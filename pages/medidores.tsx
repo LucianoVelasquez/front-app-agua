@@ -1,17 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View,Text } from 'react-native';
-import { Button } from '@rneui/themed';
 
 
-export default function Medidores({ navigation } : any) {
+
+export default function Medidores() {
     return (
   
         <View style={styles.container}>
 
           <Text>Settings</Text>
-
-          
-
 
           
           <StatusBar style="auto" />
