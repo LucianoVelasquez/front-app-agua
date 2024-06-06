@@ -8,7 +8,7 @@ export default function Login({navigation} : any) {
   
         <View style={styles.container}>
           <View style={{flex:1, overflow:'hidden'}}>
-            <Image source={require("../public/img.svg")} style={{width:380,height:300,objectFit:"contain"}}></Image>
+            <Image source={{uri:"https://raw.githubusercontent.com/LucianoVelasquez/front-app-agua/6de9c6afd256eaa0136e0ba01a261a609d9b7235/public/img.svg"}} style={{width:380,height:300,objectFit:"contain"}}></Image>
           </View>
           
           <View style={{flex:2,width:"100%",alignItems:'center',marginTop:50}}>
