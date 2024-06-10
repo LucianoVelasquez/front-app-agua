@@ -16,6 +16,7 @@ export default function Home({ navigation } : any) {
   const [valueMedidor,setValueMedidor] = useState<any>();
 
   const medidores = useSelector((state : any)=>state.medidores)
+  const medidor_detail = useSelector<any>(state=>state.medidor_detail)
 
   const dispatch = useDispatch<any>()
   const loteos = useSelector((state : any) => state.loteos);
@@ -25,20 +26,24 @@ export default function Home({ navigation } : any) {
       
       dispatch(get_loteos());
       dispatch(get_medidores())
-
-      
     },[])
 
     const searchMedidor = () =>{
-      const findMedidor = loteos[0].medidores.find((cliente : any) => {
-        if(cliente.medidor.includes(valueSearch)){
+      const findMedidor = medidores.find((cliente : any) => {
+        console.log(cliente.medidor);
+        
+        if(cliente.medidor === valueSearch){
           console.log(cliente);
           dispatch(get_medidor_by_id(valueSearch))
           return cliente;
         }
+        else {
+          console.log(cliente);
+          
+        }
       })
 
-      setValueMedidor(findMedidor);
+      setValueMedidor(medidor_detail);
     }
  
 
@@ -60,7 +65,7 @@ export default function Home({ navigation } : any) {
           <View style={{flex:4,width:"80%"}}>
 
              {
-              valueMedidor && <CardMedidor medidorCliente={valueMedidor} status={true}/>
+              valueMedidor && <CardMedidor medidorCliente={medidor_detail} status={true}/>
              } 
             
 

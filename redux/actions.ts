@@ -49,7 +49,7 @@ export const get_medidor_by_id = (id: any) => {
 
 export const put_lectura_by_medidor = (id : any, valor : any) => {
     return async function (dispatch : any) {
-        const {data} = await axios.put(`${URL_BACK}medidor/${id}`, valor)
+        const {data} = await axios.put(`${URL_BACK}medidor/${id}/`, valor)
         dispatch({type: PUT_LECTURA_BY_MEDIDOR, payload : data})
     } 
 }

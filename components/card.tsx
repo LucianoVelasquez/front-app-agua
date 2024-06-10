@@ -2,11 +2,23 @@ import { Button, Card,CheckBox,Icon,Input } from '@rneui/themed';
 import { Edit } from 'lucide-react-native';
 import { useState } from 'react';
 import { Text, View,StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { put_lectura_by_medidor } from '../redux/actions';
 
 export default function CardMedidor({medidorCliente} : any){
     const [valueActual,setValueActual] = useState();
+    const dispatch = useDispatch<any>()
 
     let {medidor,cliente,lote,manzana,lectura_actual,fecha_instalacion,is_modificate,lectura_anterior} = medidorCliente;
+
+    const handleSubmit = (medidor: any, valueActual: undefined) =>{
+
+        const value = {
+            lectura_actual: valueActual
+        }
+
+        dispatch(put_lectura_by_medidor(medidor,value));
+    }
 
     return(
         <Card containerStyle={{shadowRadius:3, borderRadius:8,padding:20}}>
@@ -52,7 +64,7 @@ export default function CardMedidor({medidorCliente} : any){
                         value={valueActual}
                         />
                         <View style={{alignSelf:"center",marginTop:30,width:"75%"}}>
-                            <Button radius={"sm"} size='md' type="solid">
+                            <Button radius={"sm"} size='md' type="solid" onPress={()=> handleSubmit(medidor,valueActual)}>
                             Guardar cambios
                                 <Icon style={{marginLeft:5}} name="save" color="white" />
                             </Button>
