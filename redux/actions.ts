@@ -27,21 +27,22 @@ export const get_loteos = () => {
 }
 
 export const get_medidores = () => {
-    return async function (dispatch : any) {
+    return async function (dispatch:any) {
         try {
-            const { data } = await axios('http://127.0.0.1:8000/medidor');    
+            const response = await fetch('http://127.0.0.1:8000/medidor');
+            const data = await response.json(); // Extraer los datos JSON de la respuesta
+            console.log(data);
             
-            dispatch({type: GET_MEDIDORES, payload: data})
+            dispatch({ type: GET_MEDIDORES, payload: data });
         } catch (error) {
-            console.log("Error get_medidores");
-            
+            console.log("Error get_medidores:", error);
         }
     } 
 }
 
 export const get_medidor_by_id = (id: any) => {
     return async function (dispatch : any) {
-        const {data} = await axios(`${URL_BACK}medidor/${id}`)
+        const {data} = await axios(`${URL_BACK}medidor/${id}/`)
         dispatch({type: GET_MEDIDOR_BY_ID, payload: data})
     }
 }

@@ -1,36 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View,Text } from 'react-native';
-import { SearchBar } from '@rneui/themed';
+import { SearchBar,Card } from '@rneui/themed';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { get_loteos, get_medidores } from '../redux/actions';
+import { get_loteos, get_medidor_by_id, get_medidores } from '../redux/actions';
+/* import { loteos } from '../data/loteos'; */
 import CardMedidor from '../components/card';
 /* import { medidor as medidores } from '../data/medidor'; */
 
 
 
 
-export default function Home() {
+export default function Home({ navigation } : any) {
   const [valueSearch,setValueSearch] = useState<string>();
   const [valueMedidor,setValueMedidor] = useState<any>();
 
-  const dispatch = useDispatch<any>()
-  const medidores = useSelector((state : any) => state.medidores);
+  const medidores = useSelector((state : any)=>state.medidores)
 
-    const getInitDataApi = () => {
-      dispatch(get_loteos());
-      dispatch(get_medidores()) 
-    } 
+  const dispatch = useDispatch<any>()
+  const loteos = useSelector((state : any) => state.loteos);
+
     
     useEffect(()=>{
       
-      getInitDataApi();
+      dispatch(get_loteos());
+      dispatch(get_medidores())
+
       
     },[])
 
     const searchMedidor = () =>{
-      let findMedidor = medidores.find((cliente : any) => {
+      const findMedidor = loteos[0].medidores.find((cliente : any) => {
         if(cliente.medidor.includes(valueSearch)){
+          console.log(cliente);
+          dispatch(get_medidor_by_id(valueSearch))
           return cliente;
         }
       })
@@ -47,19 +50,21 @@ export default function Home() {
             <SearchBar
               platform="android"
               onChangeText={(newVal : any) => setValueSearch(newVal)}
-              placeholder="Numero de medidor "
+              placeholder="Buscar medidor ..."
               placeholderTextColor="#888"
               value={valueSearch}
               onSubmitEditing={() => searchMedidor()}
-              onClear={() => setValueMedidor(null)}
             />
           </View>
 
           <View style={{flex:4,width:"80%"}}>
+
              {
-              valueMedidor ? <CardMedidor medidorCliente={valueMedidor} status={true}/> :
-              <Text style={{marginTop:150,alignSelf:"center",color:"grey",fontSize:24}}>Buscar nuevo medidor</Text>
+              valueMedidor && <CardMedidor medidorCliente={valueMedidor} status={true}/>
              } 
+            
+
+
           </View>
 
           <StatusBar style="auto" />
