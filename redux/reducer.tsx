@@ -2,7 +2,8 @@ import {GET_LOTEOS, GET_MEDIDORES} from './actions'
 
 const initialState = {
     loteos: [],
-    medidores: []
+    medidores: [],
+    medidor_detail: []
 }
 
 const rootReducer = (state = initialState, action : any) => {
