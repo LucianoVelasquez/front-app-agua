@@ -1,23 +1,43 @@
 import { Button, Card,CheckBox,Icon,Input } from '@rneui/themed';
 import { Edit } from 'lucide-react-native';
 import { useState } from 'react';
-import { Text, View,StyleSheet } from 'react-native';
+import { Text, View,StyleSheet  } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { put_lectura_by_medidor } from '../redux/actions';
+import Toast from 'react-native-root-toast'
 
 export default function CardMedidor({medidorCliente} : any){
-    const [valueActual,setValueActual] = useState();
+    const [valueActual,setValueActual] = useState('');
     const dispatch = useDispatch<any>()
-
+    
     let {medidor,cliente,lote,manzana,lectura_actual,fecha_instalacion,is_modificate,lectura_anterior} = medidorCliente;
+    const [modificado, setModificado] = useState(false)
 
-    const handleSubmit = (medidor: any, valueActual: undefined) =>{
+    const handleSubmit = (medidor: any, valueActual: any) =>{
 
         const value = {
             lectura_actual: valueActual
         }
-
-        dispatch(put_lectura_by_medidor(medidor,value));
+        if (lectura_actual <= valueActual) {
+            dispatch(put_lectura_by_medidor(medidor,value));
+            setModificado(true)
+            setValueActual('')
+            let toast = Toast.show('¡Solicitud enviada con éxito!', {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.BOTTOM,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+              });
+          
+              setTimeout(function hideToast() {
+                Toast.hide(toast);
+              }, 3000);
+        } else {
+            return alert('Lectura menor que la anterior!')
+        }
+        
     }
 
     return(
@@ -40,12 +60,12 @@ export default function CardMedidor({medidorCliente} : any){
                 <Text style={styles.text}>Lote: <Text style={styles.text2}>{lote}</Text></Text>
                 <Text style={styles.text}>Manzana: <Text style={styles.text2}>{manzana}</Text></Text>
                 {
-                    is_modificate ? (
+                    modificado ? (
                     <>
                         <Text style={styles.text}>Lectura anterior:  <Text style={styles.text2}>{lectura_anterior}</Text></Text>
                         <Text style={styles.text}>Lectura actual: <Text style={styles.text2}>{lectura_actual}</Text></Text>
                         <View style={{alignSelf:"center",marginTop:30,width:"75%"}}>
-                            <Button radius={"sm"} size='md' type="solid">
+                            <Button radius={"sm"} size='md' type="solid" onPress={()=>setModificado(false)}>
                                 Editar
                                 <Edit style={{marginLeft:8,marginTop:1}} color={"#fff"} size={18}></Edit>
                             </Button>
@@ -54,10 +74,11 @@ export default function CardMedidor({medidorCliente} : any){
                     ) :
                     (
                     <>
-                        <Text style={styles.text}>Lectura anterior: <Text style={styles.text2}>{lectura_actual}</Text></Text>
+                        <Text style={styles.text}>Lectura anterior: <Text style={styles.text2}>{lectura_anterior}</Text></Text>
+                        <Text style={styles.text}>Lectura actual: <Text style={styles.text2}>{lectura_actual}</Text></Text>
                         <Input
                         containerStyle={{width:"80%",marginTop:5}}
-                        placeholder='Lectura actual'
+                        placeholder='Nueva Lectura'
                         onChangeText={(text:any)=>{
                             setValueActual(text);
                         }}
@@ -68,6 +89,7 @@ export default function CardMedidor({medidorCliente} : any){
                             Guardar cambios
                                 <Icon style={{marginLeft:5}} name="save" color="white" />
                             </Button>
+                            
                         </View>
                     </>
                     )
